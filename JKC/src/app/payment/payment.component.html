@@ -1,0 +1,66 @@
+
+<div class="row">  
+    <h3>Confirm Payment:</h3>  
+    <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+    <table class="table table-bordered table-hover">
+      <tr *ngFor="let o of storeService.order.items">
+        <td><img src="/assets/img/{{ o.productArtId }}.jpg" alt="o.productTitle" class="img-thumbnail checkout-thumb" /></td>
+        <td>{{ o.productCategory }}({{ o.productSize }}) - {{ o.productArtist }}: {{ o.productTitle }}</td>
+        <td>{{ o.quantity }}</td>
+        <td>{{ o.unitPrice|currency:'INR':true }}</td>
+        <td>{{ (o.unitPrice * o.quantity)|currency:'INR':true }}</td>
+      </tr>
+    </table>
+    <div class="col-md-4 col-md-offset-8 text-right">
+      <table class="table table-condensed">
+        <tr>
+           
+          <td class="text-right">Subtotal</td>
+          <td class="text-right">{{ storeService.order.subtotal|currency:'INR':true }}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Shipping</td>
+          <td class="text-right">₹ 0.00</td>
+        </tr>
+        <tr>
+          <td class="text-right" >Total:</td>
+          <td class="text-right">{{ storeService.order.subtotal|currency:'INR':true }}</td>
+        </tr>
+      </table>
+      
+    </div>
+  
+  </div>
+  
+  <form id="PostForm" name="PostForm"   ngNoForm  [action]="paymentData.payuBaseUrl" method="POST">   
+    <input type="hidden" name="lastname" [(ngModel)] = "paymentData.lastNameValue">
+    <input type="hidden" name="address2"[(ngModel)] = "paymentData.address2Value">
+    <input type="hidden" name="udf5" value="PayUBiz_ASP.NET_Kit">
+    <input type="hidden" name="curl" [(ngModel)] = "paymentData.curlValue">
+    <input type="hidden" name="udf4" [(ngModel)] = "paymentData.udf4Value">
+    <input type="hidden" name="txnid" [(ngModel)] = "paymentData.txnidValue">
+    <input type="hidden" name="furl" [(ngModel)] = "paymentData.furlValue">
+    <input type="hidden" name="state" [(ngModel)] = "paymentData.stateValue">
+    <input type="hidden" name="udf2" [(ngModel)] = "paymentData.udf2Value">
+    <input type="hidden" name="udf1" [(ngModel)] = "paymentData.udf1Value">
+    <input type="hidden" name="zipcode" [(ngModel)] = "paymentData.zipCodeValue">
+    <input type="hidden" name="amount" [(ngModel)] = "paymentData.amountValue">
+    <input type="hidden" name="email" [(ngModel)] = "paymentData.emailValue">
+    <input type="hidden" name="city" [(ngModel)] = "paymentData.cityValue">
+    <input type="hidden" name="country" [(ngModel)] = "paymentData.countryValue">
+    <input type="hidden" name="udf3" [(ngModel)] = "paymentData.udf3Value">
+    <input type="hidden" name="address1" [(ngModel)] = "paymentData.address1Value">
+    <input type="hidden" name="hash" [(ngModel)] = "paymentData.hashValue">
+    <input type="hidden" name="key" [(ngModel)] = "paymentData.keyValue">
+    <input type="hidden" name="pg" [(ngModel)] = "paymentData.pgValue">
+    <input type="hidden" name="surl" [(ngModel)] = "paymentData.surlValue">
+    <input type="hidden" name="firstname" [(ngModel)] = "paymentData.firstNameValue">
+    <input type="hidden" name="productinfo" [(ngModel)] = "paymentData.productInfoValue">
+    <input type="hidden" name="phone" [(ngModel)] = "paymentData.phoneValue">
+      
+    <input type = "submit" [disabled] = "paymentDisable" class="btn btn-success" value="Proceed To Pay" />
+    <a routerLink="/" class="btn btn-secondary">Cancel</a>
+    
+  </form>
+  
+  
